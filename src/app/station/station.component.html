@@ -1,1 +1,7 @@
-<p>station-table works!</p>
+<ng-container *ngIf="stations$ | async as stations; else loading">
+  <app-station-table [stations]="stations"></app-station-table>
+</ng-container>
+
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
