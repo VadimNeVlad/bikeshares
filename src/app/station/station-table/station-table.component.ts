@@ -31,6 +31,8 @@ export class StationTableComponent implements OnInit, AfterViewInit {
     'name',
     'nameIrish',
     'bikesAvailable',
+    'bikesAvailableTypeOne',
+    'bikesAvailableTypeTwo',
     'docksAvailable',
     'docksCount',
     'schemeShortName',
