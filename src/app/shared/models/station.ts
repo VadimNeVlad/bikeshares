@@ -22,3 +22,21 @@ export interface StationResponse {
   responseHash: string;
   data: Station[];
 }
+
+export interface StationData {
+  key: string;
+  schemeId: number;
+}
+
+export interface StationOption {
+  value: SchemeId;
+  viewValue: string;
+}
+
+export enum SchemeId {
+  All = -1,
+  Waterford = 1,
+  Cork = 2,
+  Limerick = 3,
+  Galway = 4,
+}

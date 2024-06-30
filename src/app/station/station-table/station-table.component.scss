@@ -9,4 +9,16 @@
       margin: 0;
     }
   }
+
+  table {
+    width: 1000px;
+  }
+
+  .mat-elevation-z8 {
+    overflow: auto;
+  }
+
+  .mat-mdc-paginator {
+    min-width: 1000px;
+  }
 }

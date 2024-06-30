@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
+import { SchemeId, StationOption } from '../../shared/models/station';
 
 @Component({
   selector: 'app-station-filter',
@@ -20,13 +21,14 @@ export class StationFilterComponent {
   @Input() schemeId = -1;
   @Output() schemeIdChange = new EventEmitter<number>();
 
-  selectedOption = -1;
-  options: any = [
-    { value: -1, viewValue: 'All' },
-    { value: 1, viewValue: 'Waterford' },
-    { value: 2, viewValue: 'Cork' },
-    { value: 3, viewValue: 'Limerick' },
-    { value: 4, viewValue: 'Galway' },
+  selectedOption = SchemeId.All;
+
+  options: StationOption[] = [
+    { value: SchemeId.All, viewValue: 'All' },
+    { value: SchemeId.Waterford, viewValue: 'Waterford' },
+    { value: SchemeId.Cork, viewValue: 'Cork' },
+    { value: SchemeId.Limerick, viewValue: 'Limerick' },
+    { value: SchemeId.Galway, viewValue: 'Galway' },
   ];
 
   constructor() {}

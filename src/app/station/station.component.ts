@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { StationService } from '../shared/services/station.service';
 import { Observable } from 'rxjs';
-import { Station } from '../shared/models/station';
+import { SchemeId, Station, StationData } from '../shared/models/station';
 import { StationTableComponent } from './station-table/station-table.component';
 import { LoaderComponent } from '../shared/components/loader/loader.component';
 import { environment } from '../../environments/environment';
@@ -23,7 +23,7 @@ import { StationFilterComponent } from './station-filter/station-filter.componen
 })
 export class StationComponent implements OnInit {
   stations$ = new Observable<Station[]>();
-  schemeId = -1;
+  schemeId = SchemeId.All;
 
   constructor(private stationService: StationService) {}
 
@@ -32,7 +32,7 @@ export class StationComponent implements OnInit {
   }
 
   getStations(): Observable<Station[]> {
-    const data = {
+    const data: StationData = {
       key: environment.apiKey,
       schemeId: this.schemeId,
     };
