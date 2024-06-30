@@ -5,17 +5,25 @@ import { Observable } from 'rxjs';
 import { Station } from '../shared/models/station';
 import { StationTableComponent } from './station-table/station-table.component';
 import { LoaderComponent } from '../shared/components/loader/loader.component';
+import { environment } from '../../environments/environment';
+import { StationFilterComponent } from './station-filter/station-filter.component';
 
 @Component({
   selector: 'app-station',
   standalone: true,
-  imports: [CommonModule, StationTableComponent, LoaderComponent],
+  imports: [
+    CommonModule,
+    StationTableComponent,
+    LoaderComponent,
+    StationFilterComponent,
+  ],
   templateUrl: './station.component.html',
   styleUrl: './station.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationComponent implements OnInit {
   stations$ = new Observable<Station[]>();
+  schemeId = -1;
 
   constructor(private stationService: StationService) {}
 
@@ -25,10 +33,15 @@ export class StationComponent implements OnInit {
 
   getStations(): Observable<Station[]> {
     const data = {
-      key: '18b096abe6cc5cf2d5abe07630595b646ea9417e4af70e109bb5cab2d6956e11',
-      schemeId: -1,
+      key: environment.apiKey,
+      schemeId: this.schemeId,
     };
 
     return this.stationService.getStations(data);
+  }
+
+  onSchemeIdChange(schemeId: number): void {
+    this.schemeId = schemeId;
+    this.stations$ = this.getStations();
   }
 }

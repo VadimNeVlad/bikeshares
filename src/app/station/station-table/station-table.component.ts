@@ -9,28 +9,31 @@ import {
 } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { Station } from '../../shared/models/station';
 
 @Component({
   selector: 'app-station-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule],
   templateUrl: './station-table.component.html',
   styleUrl: './station-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationTableComponent implements OnInit, AfterViewInit {
   @Input() stations: Station[] = [];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   dataSource!: MatTableDataSource<Station>;
   displayedColumns: string[] = [
     'name',
-    'irish name',
-    'bikes available',
-    'docks available',
-    'docks count',
-    'city',
+    'nameIrish',
+    'bikesAvailable',
+    'docksAvailable',
+    'docksCount',
+    'schemeShortName',
   ];
 
   ngOnInit(): void {
@@ -39,5 +42,6 @@ export class StationTableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }

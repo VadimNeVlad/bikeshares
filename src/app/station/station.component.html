@@ -1,7 +1,11 @@
-<ng-container *ngIf="stations$ | async as stations; else loading">
+<div class="station">
+  @if (stations$ | async; as stations) {
+  <app-station-filter
+    [schemeId]="schemeId"
+    (schemeIdChange)="onSchemeIdChange($event)"
+  ></app-station-filter>
   <app-station-table [stations]="stations"></app-station-table>
-</ng-container>
-
-<ng-template #loading>
+  } @else {
   <app-loader></app-loader>
-</ng-template>
+  }
+</div>

@@ -4,13 +4,16 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Station, StationResponse } from '../models/station';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StationService {
+  private _baseUrl = environment.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   getStations(data: any): Observable<Station[]> {
@@ -27,10 +30,15 @@ export class StationService {
 
     return this.http
       .post<StationResponse>(
-        `https://data.bikeshare.ie/dataapi/resources/station/data/list`,
+        `${this._baseUrl}/station/data/list`,
         body.toString(),
         { headers }
       )
-      .pipe(map((res: StationResponse) => res.data));
+      .pipe(
+        map((res: StationResponse) => res.data),
+        catchError((e: HttpErrorResponse) => {
+          return throwError(() => e);
+        })
+      );
   }
 }
