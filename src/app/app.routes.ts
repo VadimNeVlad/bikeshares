@@ -11,4 +11,9 @@ export const routes: Routes = [
     path: 'station',
     component: StationComponent,
   },
+  {
+    path: '**',
+    redirectTo: 'station',
+    pathMatch: 'full',
+  },
 ];
